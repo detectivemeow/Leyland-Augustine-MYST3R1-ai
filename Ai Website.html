@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Leyland Augustine | Portfolio</title>
+
+<link rel="icon" type="image/png" href="Favicon 2.png">
+
+<style>
+  /* --- BASE STYLES --- */
+  *, *::before, *::after { box-sizing: border-box; }
+  
+  body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #0f111a;
+    color: #ffffff;
+    overflow-x: hidden;
+  }
+
+  a { text-decoration: none; color: inherit; cursor: pointer; }
+  
+  .container { 
+    max-width: 1200px; 
+    margin: auto; 
+    padding: 0 40px; 
+  }
+
+  /* --- NAVBAR --- */
+  header {
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    left: 0; 
+    z-index: 1000;
+    background: #151a2b; 
+    height: 80px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  }
+  
+  header .container {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%;
+  }
+
+  .logo { 
+    font-weight: 700; 
+    font-size: 1.6rem; 
+    color: #f6a560; 
+    cursor: pointer;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+  
+  nav ul { 
+    display: flex; 
+    gap: 35px; 
+    align-items: center; 
+    list-style: none; 
+    margin: 0; 
+    padding: 0; 
+  }
+  
+  nav li { 
+    font-weight: 600; 
+    color: #e0e6f3; 
+    transition: 0.3s; 
+    font-size: 1rem;
+  }
+  
+  nav li:hover { color: #f6a560; }
+
+  .nav-ai-btn { 
+    border: 2px solid #f6a560; 
+    padding: 8px 20px; 
+    border-radius: 8px; 
+    color: #f6a560 !important; 
+  }
+  .nav-ai-btn:hover { background: #f6a560; color: #151a2b !important; }
+
+  /* --- PAGE LOGIC --- */
+  .page-content { display: none; padding-top: 120px; } 
+  #home-page { display: block; } 
+
+  /* --- HERO SECTION --- */
+  #hero { min-height: 75vh; display: flex; align-items: center; }
+  .intro h1 { font-size: 4rem; color: #f6a560; margin-bottom: 10px; font-weight: 800; }
+  .intro p { font-size: 1.3rem; color: #ccc; margin-bottom: 40px; max-width: 650px; line-height: 1.6; }
+
+  .btn-group { display: flex; gap: 20px; flex-wrap: wrap; }
+  .btn {
+    padding: 16px 32px; border-radius: 12px; font-weight: 700;
+    cursor: pointer; border: none; transition: 0.3s; font-size: 1rem;
+  }
+  .btn-primary { background: #f6a560; color: #151a2b; }
+  .btn-ai { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
+
+  /* --- AI WINDOW --- */
+  .ai-window {
+    max-width: 850px; margin: 20px auto; height: 70vh;
+    background: #151a2b; border: 1px solid #f6a560; border-radius: 20px;
+    display: flex; flex-direction: column; overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .chat-body { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+  .message { padding: 15px 20px; border-radius: 15px; max-width: 75%; line-height: 1.5; }
+  .bot-msg { background: #2a3045; align-self: flex-start; border-bottom-left-radius: 2px; }
+  .user-msg { background: #f6a560; color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500; }
+
+  /* --- THINKING ANIMATION STYLES --- */
+  .thinking-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    align-self: flex-start;
+  }
+  .loader-wrapper {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .robot-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    z-index: 2;
+  }
+  .ring-loader {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 3px solid transparent;
+    border-top: 3px solid #f6a560;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    z-index: 1;
+  }
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+
+  /* --- SECTIONS --- */
+  section { padding: 100px 0; }
+  h2 { font-size: 2.8rem; color: #f6a560; text-align: center; margin-bottom: 50px; }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+  .card { background: #1d2238; padding: 35px; border-radius: 15px; border: 1px solid #333; transition: 0.3s; }
+  .card:hover { border-color: #f6a560; transform: translateY(-5px); }
+
+  footer { text-align: center; padding: 60px; background: #151a2b; border-top: 1px solid #1d2238; color: #777; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <div class="logo" onclick="showHome()">MYST3R1.ai</div>
+    <nav>
+      <ul>
+        <li onclick="showHome()">Home</li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li onclick="showAI()" class="nav-ai-btn">MYST3R1 AI</li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="home-page" class="page-content">
+  <section id="hero">
+    <div class="container intro">
+      <h1>Hello, I’m Leyland Augustine</h1>
+      <p>I’m a passionate developer focused on building smooth, modern web experiences and intelligent AI interfaces.</p>
+      <div class="btn-group">
+        <button onclick="showAI()" class="btn btn-ai">✨ Ask MYST3R1 AI</button>
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <h2>Featured Work</h2>
+      <div class="projects-grid">
+        <div class="card">
+          <h3>Stock Car Racing</h3>
+          <p>A high-performance racing simulation featuring realistic physics engines and custom car mechanics.</p>
+        </div>
+        <div class="card">
+          <h3>MYST3R1 AI</h3>
+          <p>A custom-coded conversational assistant designed to bridge the gap between users and portfolio data.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h2>Get In Touch</h2>
+      <div style="text-align: center; background: #1d2238; padding: 40px; border-radius: 20px; max-width: 600px; margin: auto;">
+        <p>GitHub: <span style="color:#f6a560; font-weight:bold;">@detectivemeow</span></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="ai-page" class="page-content">
+  <div class="container">
+    <div class="ai-window">
+      <div class="chat-body" id="chat-box">
+        <div class="message bot-msg">Hello. I am the MYST3R1 AI system. How can I assist you today?</div>
+      </div>
+      <div style="padding:20px; display:flex; gap:12px; background:#0f111a; border-top: 1px solid #333;">
+        <input type="text" id="user-in" placeholder="Ask about racing, web dev, or projects..." style="flex:1; padding:15px; border-radius:10px; border:1px solid #444; background:#222; color:white; outline:none;" onkeypress="if(event.key==='Enter')send()">
+        <button onclick="send()" style="background:#f6a560; border:none; padding:0 30px; border-radius:10px; cursor:pointer; font-weight:bold; color:#151a2b;">Send</button>
+      </div>
+    </div>
+    <p style="text-align:center; margin-top: 25px;">
+        <span onclick="showHome()" style="color:#f6a560; font-weight:bold; cursor:pointer; text-decoration: underline;">← Return to Main Portfolio</span>
+    </p>
+  </div>
+</main>
+
+<footer><p>© 2026 Leyland Augustine | Built with Passion</p></footer>
+
+<script>
+  function finalizePage() {
+    window.stop(); 
+    if(window.location.hash) {
+      history.replaceState(null, null, window.location.pathname);
+    }
+    showHome();
+  }
+
+  function showHome() {
+    document.getElementById('ai-page').style.display = 'none';
+    document.getElementById('home-page').style.display = 'block';
+    window.scrollTo(0,0);
+  }
+
+  function showAI() {
+    document.getElementById('home-page').style.display = 'none';
+    document.getElementById('ai-page').style.display = 'block';
+    window.scrollTo(0,0);
+  }
+
+  function send() {
+    let box = document.getElementById('chat-box');
+    let input = document.getElementById('user-in');
+    let val = input.value.trim();
+    if(!val) return;
+
+    let uDiv = document.createElement('div');
+    uDiv.className = 'message user-msg';
+    uDiv.innerText = val;
+    box.appendChild(uDiv);
+    input.value = '';
+    box.scrollTop = box.scrollHeight;
+
+    // UNIQUE LOADER LOGIC
+    const loaderId = "loader-" + Date.now();
+    let loadDiv = document.createElement('div');
+    loadDiv.id = loaderId;
+    loadDiv.className = 'thinking-container';
+    loadDiv.innerHTML = `
+      <div class="loader-wrapper">
+        <div class="ring-loader"></div>
+        <img src="Favicon 2.png" class="robot-icon" onerror="this.src='https://via.placeholder.com/22'">
+      </div>
+      <span style="font-size: 0.8rem; color: #777;">MYST3R1 is thinking...</span>
+    `;
+    box.appendChild(loadDiv);
+    box.scrollTop = box.scrollHeight;
+
+    setTimeout(() => {
+      // Remove specific loader
+      let target = document.getElementById(loaderId);
+      if(target) target.remove();
+
+      let bDiv = document.createElement('div');
+      bDiv.className = 'message bot-msg';
+      
+      let low = val.toLowerCase();
+      let reply = "I am processing your request. Leyland is an expert in web development!";
+      if(low.includes("racing") || low.includes("car")) reply = "Leyland has a deep passion for Stock Car racing!";
+      if(low.includes("who are you")) reply = "I am MYST3R1, Leyland's custom AI interface.";
+
+      bDiv.innerText = reply;
+      box.appendChild(bDiv);
+      box.scrollTop = box.scrollHeight;
+    }, 1200);
+  }
+
+  window.onload = finalizePage;
+</script>
+
+</body>
+</html>
