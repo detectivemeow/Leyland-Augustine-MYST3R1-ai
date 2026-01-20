@@ -2,158 +2,84 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 <title>Leyland Augustine | Portfolio</title>
-
 <link rel="icon" type="image/png" href="Favicon 2.png">
-
 <style>
-  /* --- BASE STYLES --- */
+  :root {
+    --primary-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+    --accent-blue: #2575fc;
+    --bg-dark: #0a0c14;
+    --card-bg: #151a2b;
+    --text-main: #ffffff;
+    --text-dim: #a0a0c0;
+  }
+
   *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: 'Inter', sans-serif; background-color: var(--bg-dark); color: var(--text-main); overflow-x: hidden; width: 100%; line-height: 1.6; }
   
-  body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background-color: #0f111a;
-    color: #ffffff;
-    overflow-x: hidden;
-  }
+  .container { max-width: 1100px; margin: auto; padding: 0 20px; width: 100%; }
 
-  a { text-decoration: none; color: inherit; cursor: pointer; }
+  /* --- NAVIGATION --- */
+  header { position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; background: rgba(10, 12, 20, 0.95); border-bottom: 1px solid #1e253a; padding: 12px 0; }
+  header .container { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+  .logo { font-weight: 800; font-size: 1.2rem; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; cursor: pointer; }
   
-  .container { 
-    max-width: 1200px; 
-    margin: auto; 
-    padding: 0 40px; 
-  }
-
-  /* --- NAVBAR --- */
-  header {
-    position: fixed; 
-    width: 100%; 
-    top: 0; 
-    left: 0; 
-    z-index: 1000;
-    background: #151a2b; 
-    height: 80px;
-    display: flex;
-    align-items: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-  }
-  
-  header .container {
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    width: 100%;
-  }
-
-  .logo { 
-    font-weight: 700; 
-    font-size: 1.6rem; 
-    color: #f6a560; 
-    cursor: pointer;
-    letter-spacing: 1px;
-    margin: 0;
-  }
-  
-  nav ul { 
-    display: flex; 
-    gap: 35px; 
-    align-items: center; 
-    list-style: none; 
-    margin: 0; 
-    padding: 0; 
-  }
-  
-  nav li { 
-    font-weight: 600; 
-    color: #e0e6f3; 
-    transition: 0.3s; 
-    font-size: 1rem;
-  }
-  
-  nav li:hover { color: #f6a560; }
-
-  .nav-ai-btn { 
-    border: 2px solid #f6a560; 
-    padding: 8px 20px; 
-    border-radius: 8px; 
-    color: #f6a560 !important; 
-  }
-  .nav-ai-btn:hover { background: #f6a560; color: #151a2b !important; }
+  nav ul { display: flex; gap: 15px; list-style: none; margin: 0; padding: 0; align-items: center; }
+  nav a { font-size: 0.8rem; font-weight: 600; color: var(--text-dim); text-decoration: none; transition: 0.3s; cursor: pointer; }
+  nav a:hover { color: #fff; }
+  .nav-ai-btn { border: 1.5px solid var(--accent-blue); padding: 5px 10px; border-radius: 8px; color: #fff !important; background: rgba(37, 117, 252, 0.1); }
 
   /* --- PAGE LOGIC --- */
-  .page-content { display: none; padding-top: 120px; } 
+  .page-content { display: none; padding-top: 80px; min-height: 100vh; } 
   #home-page { display: block; } 
 
-  /* --- HERO SECTION --- */
-  #hero { min-height: 75vh; display: flex; align-items: center; }
-  .intro h1 { font-size: 4rem; color: #f6a560; margin-bottom: 10px; font-weight: 800; }
-  .intro p { font-size: 1.3rem; color: #ccc; margin-bottom: 40px; max-width: 650px; line-height: 1.6; }
-
-  .btn-group { display: flex; gap: 20px; flex-wrap: wrap; }
-  .btn {
-    padding: 16px 32px; border-radius: 12px; font-weight: 700;
-    cursor: pointer; border: none; transition: 0.3s; font-size: 1rem;
-  }
-  .btn-primary { background: #f6a560; color: #151a2b; }
-  .btn-ai { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; }
-  .btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.3); }
-
-  /* --- AI WINDOW --- */
-  .ai-window {
-    max-width: 850px; margin: 20px auto; height: 70vh;
-    background: #151a2b; border: 1px solid #f6a560; border-radius: 20px;
-    display: flex; flex-direction: column; overflow: hidden;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-  }
-  .chat-body { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
-  .message { padding: 15px 20px; border-radius: 15px; max-width: 75%; line-height: 1.5; }
-  .bot-msg { background: #2a3045; align-self: flex-start; border-bottom-left-radius: 2px; }
-  .user-msg { background: #f6a560; color: #000; align-self: flex-end; border-bottom-right-radius: 2px; font-weight: 500; }
-
-  /* --- THINKING ANIMATION STYLES --- */
-  .thinking-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    align-self: flex-start;
-  }
-  .loader-wrapper {
-    position: relative;
-    width: 35px;
-    height: 35px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .robot-icon {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    z-index: 2;
-  }
-  .ring-loader {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    border: 3px solid transparent;
-    border-top: 3px solid #f6a560;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-    z-index: 1;
-  }
-  @keyframes spin { 100% { transform: rotate(360deg); } }
+  /* --- HERO --- */
+  #hero { padding: 60px 0 40px 0; text-align: left; }
+  .intro h1 { font-size: clamp(2.2rem, 8vw, 4rem); margin-bottom: 15px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 800; line-height: 1.1; }
+  .intro p { font-size: 1.1rem; color: var(--text-dim); margin-bottom: 30px; max-width: 600px; }
+  .btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn { padding: 14px 24px; border-radius: 12px; font-weight: 700; cursor: pointer; border: none; transition: 0.3s; font-size: 0.95rem; flex: 1; min-width: 140px; text-align: center; }
+  .btn-primary { background: #fff; color: #000; }
+  .btn-ai { background: var(--primary-gradient); color: white; }
 
   /* --- SECTIONS --- */
-  section { padding: 100px 0; }
-  h2 { font-size: 2.8rem; color: #f6a560; text-align: center; margin-bottom: 50px; }
-  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-  .card { background: #1d2238; padding: 35px; border-radius: 15px; border: 1px solid #333; transition: 0.3s; }
-  .card:hover { border-color: #f6a560; transform: translateY(-5px); }
+  section { padding: 80px 0 40px 0; }
+  h2 { font-size: 2rem; margin-bottom: 25px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+  .card { background: var(--card-bg); padding: 25px; border-radius: 15px; border: 1px solid #1e253a; transition: 0.3s; }
+  .contact-box { background: var(--card-bg); padding: 30px; border-radius: 15px; border: 1px solid #1e253a; text-align: center; max-width: 600px; margin: 0 auto; }
+  input, textarea { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #1e253a; background: #0a0c14; color: white; font-size: 16px; font-family: inherit; }
 
-  footer { text-align: center; padding: 60px; background: #151a2b; border-top: 1px solid #1d2238; color: #777; }
+  /* --- AI WINDOW --- */
+  .ai-window { width: 100%; height: 75vh; background: var(--card-bg); border-radius: 15px; border: 1px solid #1e253a; display: flex; flex-direction: column; overflow: hidden; position: relative; }
+  canvas#matrix-canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.1; pointer-events: none; }
+  .ai-header { background: rgba(21, 26, 43, 0.95); padding: 12px 20px; border-bottom: 1px solid #1e253a; display: flex; justify-content: space-between; align-items: center; z-index: 2; }
+  .chat-body { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; z-index: 1; }
+  .message { padding: 12px 16px; border-radius: 15px; max-width: 85%; font-size: 0.9rem; word-wrap: break-word; }
+  .bot-msg { background: rgba(30, 37, 58, 0.8); align-self: flex-start; border-left: 3px solid var(--accent-blue); }
+  .user-msg { background: var(--primary-gradient); color: #fff; align-self: flex-end; }
+  
+  .voice-btn { background: transparent; border: 1px solid var(--accent-blue); color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.7rem; cursor: pointer; font-weight: bold; }
+  .voice-btn.active { background: var(--accent-blue); }
+
+  /* --- MOBILE FIXES --- */
+  @media (max-width: 600px) {
+    header .container { flex-direction: column; gap: 10px; text-align: center; }
+    nav ul { gap: 10px; justify-content: center; }
+    .page-content { padding-top: 120px; }
+    .intro h1, .intro p { text-align: center; }
+    .ai-window { height: 70vh; }
+  }
+
+  /* --- AI FACE --- */
+  .ai-face { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+  .eye-row { display: flex; gap: 5px; }
+  .eye { width: 5px; height: 5px; background: #00f2ff; border-radius: 50%; box-shadow: 0 0 8px #00f2ff; }
+  .mouth { width: 14px; height: 2px; background: #00f2ff; border-radius: 10px; transition: 0.2s; }
+  .talking { animation: speak 0.2s infinite; }
+  @keyframes speak { 50% { height: 8px; } }
 </style>
 </head>
 <body>
@@ -163,142 +89,168 @@
     <div class="logo" onclick="showHome()">MYST3R1.ai</div>
     <nav>
       <ul>
-        <li onclick="showHome()">Home</li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-        <li onclick="showAI()" class="nav-ai-btn">MYST3R1 AI</li>
+        <li><a onclick="showHome()">Home</a></li>
+        <li><a onclick="scrollToSection('projects')">Projects</a></li>
+        <li><a onclick="scrollToSection('contact')">Contact</a></li>
+        <li><a onclick="showAI()" class="nav-ai-btn">AI Chat</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
 <main id="home-page" class="page-content">
-  <section id="hero">
-    <div class="container intro">
-      <h1>Hello, I’m Leyland Augustine</h1>
-      <p>I’m a passionate developer focused on building smooth, modern web experiences and intelligent AI interfaces.</p>
-      <div class="btn-group">
-        <button onclick="showAI()" class="btn btn-ai">✨ Ask MYST3R1 AI</button>
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects">
-    <div class="container">
-      <h2>Featured Work</h2>
-      <div class="projects-grid">
-        <div class="card">
-          <h3>Stock Car Racing</h3>
-          <p>A high-performance racing simulation featuring realistic physics engines and custom car mechanics.</p>
+  <div class="container">
+    <section id="hero">
+        <div class="intro">
+          <h1>Leyland Augustine</h1>
+          <p>Engineering high-performance racing simulations and advanced neural interfaces.</p>
+          <div class="btn-group">
+            <button onclick="showAI()" class="btn btn-ai">✨ Talk to AI</button>
+            <button class="btn btn-primary" onclick="scrollToSection('projects')">My Projects</button>
+          </div>
         </div>
-        <div class="card">
-          <h3>MYST3R1 AI</h3>
-          <p>A custom-coded conversational assistant designed to bridge the gap between users and portfolio data.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="contact">
-    <div class="container">
-      <h2>Get In Touch</h2>
-      <div style="text-align: center; background: #1d2238; padding: 40px; border-radius: 20px; max-width: 600px; margin: auto;">
-        <p>GitHub: <span style="color:#f6a560; font-weight:bold;">@detectivemeow</span></p>
-      </div>
-    </div>
-  </section>
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="grid">
+          <div class="card">
+            <h3 style="color:var(--accent-blue)">Stock Car Racing</h3>
+            <p>Advanced physics racing engine with tire wear and aerodynamic drafting mechanics.</p>
+          </div>
+          <div class="card">
+            <h3 style="color:var(--accent-blue)">Neural Portfolio</h3>
+            <p>Smart portfolio interface powered by Gemini 1.5 Flash for real-time interaction.</p>
+          </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <div class="contact-box">
+          <input type="email" placeholder="Your Email">
+          <textarea placeholder="Your Message" rows="4"></textarea>
+          <button class="btn btn-ai" style="width: 100%;">Send Message</button>
+        </div>
+    </section>
+  </div>
 </main>
 
 <main id="ai-page" class="page-content">
   <div class="container">
     <div class="ai-window">
-      <div class="chat-body" id="chat-box">
-        <div class="message bot-msg">Hello. I am the MYST3R1 AI system. How can I assist you today?</div>
+      <canvas id="matrix-canvas"></canvas>
+      <div class="ai-header">
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="ai-face">
+            <div class="eye-row"><div class="eye"></div><div class="eye"></div></div>
+            <div class="mouth" id="mouth"></div>
+          </div>
+          <span style="font-size:0.75rem; font-weight:bold; color:var(--accent-blue);">MYST3R1 CORE</span>
+        </div>
+        <button id="v-btn" class="voice-btn active" onclick="toggleVoice()">🔊 VOICE ON</button>
       </div>
-      <div style="padding:20px; display:flex; gap:12px; background:#0f111a; border-top: 1px solid #333;">
-        <input type="text" id="user-in" placeholder="Ask about racing, web dev, or projects..." style="flex:1; padding:15px; border-radius:10px; border:1px solid #444; background:#222; color:white; outline:none;" onkeypress="if(event.key==='Enter')send()">
-        <button onclick="send()" style="background:#f6a560; border:none; padding:0 30px; border-radius:10px; cursor:pointer; font-weight:bold; color:#151a2b;">Send</button>
+      <div class="chat-body" id="chat-box">
+        <div class="message bot-msg">Neural link active. I am MYST3R1. How can I assist you?</div>
+      </div>
+      <div style="padding:15px; background:rgba(10,12,20,0.95); border-top:1px solid #1e253a; display:flex; gap:10px; z-index:2;">
+        <input type="text" id="user-in" placeholder="Query the system..." style="flex:1; margin:0; font-size:16px;" onkeypress="if(event.key==='Enter')send()">
+        <button onclick="send()" style="background:var(--primary-gradient); border:none; color:white; padding:0 15px; border-radius:8px; font-weight:bold; cursor:pointer;">></button>
       </div>
     </div>
-    <p style="text-align:center; margin-top: 25px;">
-        <span onclick="showHome()" style="color:#f6a560; font-weight:bold; cursor:pointer; text-decoration: underline;">← Return to Main Portfolio</span>
-    </p>
+    <p style="text-align:center;"><a onclick="showHome()" style="color:var(--accent-blue); font-size:0.8rem; cursor:pointer; font-weight:bold;">← Return to Main Page</a></p>
   </div>
 </main>
 
-<footer><p>© 2026 Leyland Augustine | Built with Passion</p></footer>
-
 <script>
-  function finalizePage() {
-    window.stop(); 
-    if(window.location.hash) {
-      history.replaceState(null, null, window.location.pathname);
-    }
-    showHome();
+  const ENC = "QUl6YVN5QzZHaTNfWXdPTW9YUVV1YkhSSVJVT1VQUWhfSGtkLXpv";
+  const URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${atob(ENC)}`;
+
+  let vOn = true;
+
+  function speak(text) {
+    if(!vOn) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.onstart = () => document.getElementById('mouth').classList.add('talking');
+    utterance.onend = () => document.getElementById('mouth').classList.remove('talking');
+    window.speechSynthesis.speak(utterance);
   }
 
-  function showHome() {
-    document.getElementById('ai-page').style.display = 'none';
-    document.getElementById('home-page').style.display = 'block';
-    window.scrollTo(0,0);
-  }
-
-  function showAI() {
-    document.getElementById('home-page').style.display = 'none';
-    document.getElementById('ai-page').style.display = 'block';
-    window.scrollTo(0,0);
-  }
-
-  function send() {
-    let box = document.getElementById('chat-box');
+  async function send() {
     let input = document.getElementById('user-in');
+    let box = document.getElementById('chat-box');
     let val = input.value.trim();
     if(!val) return;
-
-    let uDiv = document.createElement('div');
-    uDiv.className = 'message user-msg';
-    uDiv.innerText = val;
-    box.appendChild(uDiv);
+    box.innerHTML += `<div class="message user-msg">${val}</div>`;
     input.value = '';
     box.scrollTop = box.scrollHeight;
-
-    // UNIQUE LOADER LOGIC
-    const loaderId = "loader-" + Date.now();
-    let loadDiv = document.createElement('div');
-    loadDiv.id = loaderId;
-    loadDiv.className = 'thinking-container';
-    loadDiv.innerHTML = `
-      <div class="loader-wrapper">
-        <div class="ring-loader"></div>
-        <img src="Favicon 2.png" class="robot-icon" onerror="this.src='https://via.placeholder.com/22'">
-      </div>
-      <span style="font-size: 0.8rem; color: #777;">MYST3R1 is thinking...</span>
-    `;
-    box.appendChild(loadDiv);
-    box.scrollTop = box.scrollHeight;
-
-    setTimeout(() => {
-      // Remove specific loader
-      let target = document.getElementById(loaderId);
-      if(target) target.remove();
-
-      let bDiv = document.createElement('div');
-      bDiv.className = 'message bot-msg';
-      
-      let low = val.toLowerCase();
-      let reply = "I am processing your request. Leyland is an expert in web development!";
-      if(low.includes("racing") || low.includes("car")) reply = "Leyland has a deep passion for Stock Car racing!";
-      if(low.includes("who are you")) reply = "I am MYST3R1, Leyland's custom AI interface.";
-
-      bDiv.innerText = reply;
-      box.appendChild(bDiv);
+    try {
+      const res = await fetch(URL, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ contents: [{ parts: [{ text: `You are MYST3R1, an AI assistant for Leyland Augustine. User says: ${val}` }] }] })
+      });
+      const data = await res.json();
+      let reply = data.candidates[0].content.parts[0].text;
+      box.innerHTML += `<div class="message bot-msg">${reply}</div>`;
       box.scrollTop = box.scrollHeight;
-    }, 1200);
+      speak(reply);
+    } catch (e) {
+      box.innerHTML += `<div class="message bot-msg">System Error: Connection lost.</div>`;
+    }
   }
 
-  window.onload = finalizePage;
-</script>
+  function toggleVoice() { 
+    vOn = !vOn; 
+    document.getElementById('v-btn').innerText = vOn ? "🔊 VOICE ON" : "🔇 VOICE OFF"; 
+    document.getElementById('v-btn').classList.toggle('active'); 
+    if(!vOn) window.speechSynthesis.cancel();
+  }
 
+  function showHome() { 
+    document.getElementById('ai-page').style.display = 'none'; 
+    document.getElementById('home-page').style.display = 'block'; 
+    window.scrollTo(0,0);
+  }
+
+  function showAI() { 
+    document.getElementById('home-page').style.display = 'none'; 
+    document.getElementById('ai-page').style.display = 'block'; 
+    initMatrix(); 
+    window.scrollTo(0,0);
+  }
+
+  function scrollToSection(id) {
+    showHome();
+    setTimeout(() => {
+      const el = document.getElementById(id);
+      if(el) el.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }
+
+  const canvas = document.getElementById('matrix-canvas');
+  const ctx = canvas.getContext('2d');
+  let columns, drops = [];
+  function initMatrix() { 
+    canvas.width = canvas.parentElement.offsetWidth; 
+    canvas.height = canvas.parentElement.offsetHeight; 
+    columns = Math.floor(canvas.width / 20); 
+    drops = Array(columns).fill(1); 
+  }
+  function drawMatrix() { 
+    ctx.fillStyle = "rgba(10, 12, 20, 0.1)"; 
+    ctx.fillRect(0, 0, canvas.width, canvas.height); 
+    ctx.fillStyle = "#2575fc"; 
+    ctx.font = "15px monospace"; 
+    drops.forEach((y, i) => { 
+      ctx.fillText("01"[Math.floor(Math.random()*2)], i*20, y*20); 
+      if(y*20 > canvas.height && Math.random() > 0.975) drops[i] = 0; 
+      drops[i]++; 
+    }); 
+  }
+  setInterval(drawMatrix, 50);
+  window.onload = showHome;
+</script>
 </body>
 </html>
